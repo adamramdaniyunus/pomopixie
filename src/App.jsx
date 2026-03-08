@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import {
-  Coffee,
-  Egg,
+  BarChart3,
   LayoutGrid,
-  Sprout,
+  ShoppingBag,
   TimerIcon,
   User
 } from "lucide-react"
-import {twMerge} from "tailwind-merge"
-import {clsx} from "clsx"
 import PixelButton from './components/ui/button'
+import MainScreen from './components/pages/main'
+import SettingsPage from './components/pages/settings'
 
 function App() {
 
@@ -19,17 +18,21 @@ function App() {
    */
 
   const [focusDuration, setFocusDuration] = useState(25)
+  const [breakDuration, setBreakDuration] = useState(5)
+  const [screen, setScreen] = useState("home")
 
-  // merge class
-  function cn(...inputs) {
-    return twMerge(clsx(inputs));
-  }
+  const navigationButton = [
+    {id: "home", name: "Home", desc: "Back to home", icon: <LayoutGrid className='w-8 h-8'/>, color: "bg-pomo-text"},
+    {id: "timer", name: "timer", desc: "Start timer", icon: <TimerIcon className='w-8 h-8'/>, color: "bg-pomo-text"},
+    {id: "stats", name: "Stats", desc: "See statistic", icon: <BarChart3 className='w-8 h-8'/>, color: "bg-pomo-text"},
+    {id: "shop", name: "Shop", desc: "Buy some skin here", icon: <ShoppingBag className='w-8 h-8'/>, color: "bg-pomo-text"},
+    {id: "profile", name: "Profile", desc: "Edit your profile", icon: <User className='w-8 h-8'/>, color: "bg-pomo-text"},
+  ]
 
-  const modes = [
-    {id: "work_mode", name: "Work Mode", desc: "Standard productivity", icon: <Egg className='w-8 h-8'/> , color: 'bg-pomo-orange/20'},
-    {id: "deep_focused", name: "Deep Focused", desc: "Strict focus mode", icon: <Sprout className='w-8 h-8'/> , color: 'bg-pomo-yellow'},
-    {id: "rest_mode", name: "Break Time", desc: "Coffee time", icon: <Coffee className='w-8 h-8'/> , color: 'bg-pomo-orange'},
-    {id: "stats", name: "Stats", desc: "Track productivity", icon: <TimerIcon className='w-8 h-8'/> , color: 'bg-pomo-yellow/40'},
+  const screenSection = [
+    {id: "home", screen: <MainScreen focusDuration={focusDuration}/>},
+    {id: "timer", screen: <>hello from timer</>},
+    {id: "settings", screen: <SettingsPage focusDuration={focusDuration} setFocusDuration={setFocusDuration} breakDuration={breakDuration} setBreakDuration={setBreakDuration}/>},
   ]
   
 
@@ -42,7 +45,7 @@ function App() {
    * when button clicked it will redirect to menu page
    */
   const handleNavigationBtn = () => {
-    console.log("clicked");
+    setScreen("settings");
   }
 
   /**
@@ -53,8 +56,28 @@ function App() {
     console.log("clicked");
   }
 
+  /**
+   * Function for handle render screen
+   * Edit here when u want add render screen
+   */
+  const handleRenderScreen = (screenId) => {
+    const renderScreen = screenSection.find((prev) => prev.id === screenId);
+    if(!renderScreen) return
+    return renderScreen.screen
+  }
+
+  /**
+   * Function for handle footer navigation
+   * when user click the button it will render screen
+   */
+  const handleWidgetBtn = (screenId) => {
+    // avoid re render same screen
+    if(screenId === screen) return;
+    setScreen(screenId)
+  }
+
   return (
-   <div className="flex flex-col min-h-screen gap-5 bg-pomo-bg">
+   <div className="flex flex-col justify-between min-h-screen gap-5 bg-pomo-bg">
       {/* Header section */}
       <nav className="flex gap-4 justify-between items-center px-6 py-4"> 
         <button className='text-2xl' onClick={handleNavigationBtn}>
@@ -72,47 +95,32 @@ function App() {
 
       {/* Main content section */}
       <main className='flex flex-col px-4 gap-0.5'>
-
-        <h1 className='font-pixel text-4xl uppercase tracking-wider'>Ready to focus?</h1>
-        <span className='text-sm'>Pick a mode to start your journey</span>
-
-        {/* Mode list */}
-        <div className='grid grid-cols-2 mt-8 gap-4'>
-          {modes.map((mode) => (
-            <div key={mode.id} className={cn('rounded-xl items-center justify-center hover:scale-105 gap-2 transition-all ease-in-out border-pomo-text border-4 flex flex-col p-4', mode.color)}>
-              <div className="p-3 bg-white/50 rounded-xl border-2 border-pomo-text/10">
-                {mode.icon}
-              </div>
-              <span className='font-pixel text-xl'>
-                {mode.name}
-              </span>
-              <p className='text-[10px] text-pomo-text/40 leading-tight uppercase text-center'>{mode.desc}</p>
-            </div>
-          ))}
-        </div>
-
-
-        {/* Start timer */}
-        <div className='border-dashed border-pomo-text/30 border-4 mt-10 p-4 rounded-lg bg-transparent shadow-none'>
-          <div className='flex flex-col items-center space-y-4 py-4'>
-            <div className="flex items-center space-x-4 font-pixel text-3xl">
-              <span className="opacity-40">00</span>
-              <span className="opacity-20">:</span>
-              <span>{focusDuration.toString().padStart(2, '0')}</span>
-              <span className="opacity-20">:</span>
-              <span className="opacity-40">00</span>
-            </div>
-
-            <PixelButton className='w-full uppercase' variant='primary'>
-              start timer
-            </PixelButton>
-          </div>
-        </div>
+        {handleRenderScreen(screen)}
       </main>
 
       {/* Footer section */}
-      <footer className='sticky bottom-0 bg-pomo-bg shadow-md px-4 py-2'>
-        Footer here
+      <footer className='sticky bottom-0 bg-pomo-bg shadow-md py-2'>
+        <nav className='flex justify-center w-full px-4'>
+          {navigationButton.map((item) => (
+            <PixelButton
+              key={item.id}
+              className={`
+                flex flex-col justify-center items-center
+                opacity-50 border-none w-full shadow-none
+                uppercase
+                hover:translate-y-[-7px]
+                transition-all
+                ease-in-out
+                ${screen === item.id && 'bg-pomo-text rounded-md opacity-100 text-white'}`}
+              variant='default'
+              title={item.desc}
+              onClick={() => handleWidgetBtn(item.id)}
+            >
+              {item.icon}
+              <span className='text-sm'>{item.name}</span>
+            </PixelButton>
+          ))}
+        </nav>
       </footer>
    </div>
   )
