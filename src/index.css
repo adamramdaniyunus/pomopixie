@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "VT323", monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-pomo-bg: #FFFDF0;
+  --color-pomo-yellow: #FFD93D;
+  --color-pomo-orange: #FF8400;
+  --color-pomo-white: #FFFFFF;
+  --color-pomo-text: #4F200D;
+  --color-pomo-clay: #D6C4B0;
+}
+
+@layer base {
+  body {
+    @apply bg-pomo-bg text-pomo-text font-sans antialiased;
+  }
+}
+
+@layer components {
+  .pixel-border {
+    @apply border-4 border-pomo-text;
+    box-shadow: 4px 4px 0px 0px rgba(79, 32, 13, 0.2);
+  }
+  
+  .pixel-button {
+    @apply relative inline-block px-4 py-2 font-pixel text-2xl transition-transform active:scale-95;
+    @apply bg-pomo-white border-4 border-pomo-text;
+    box-shadow: 4px 4px 0px 0px #4F200D;
+  }
+  
+  .pixel-card {
+    @apply bg-pomo-white border-4 border-pomo-text rounded-2xl p-4;
+    box-shadow: 6px 6px 0px 0px rgba(79, 32, 13, 0.1);
+  }
+}
