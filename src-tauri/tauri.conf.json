@@ -13,10 +13,12 @@
     "windows": [
       {
         "title": "PomoPixie",
-        "width": 365,
-        "height": 600,
+        "width": 363,
+        "height": 630,
         "resizable": false,
-        "fullscreen": false
+        "fullscreen": false,
+        "decorations": false,
+        "transparent": false
       }
     ],
     "security": {

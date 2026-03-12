@@ -12,6 +12,8 @@ import MainScreen from './components/pages/main'
 import SettingsPage from './components/pages/settings'
 import { motion } from 'motion/react'
 import cn from './utils/cn'
+import { close, minimize } from './utils/titlebar'
+import TimerScreen from './components/pages/timer'
 
 
 function App() {
@@ -85,33 +87,62 @@ function App() {
 
   const screenSection = [
     {id: "home", screen: <MainScreen focusDuration={focusDuration} handleModeBtn={handleModeBtn}/>},
-    {id: "timer", screen: <>hello from timer</>},
+    {id: "timer", screen: <TimerScreen focusDuration={focusDuration}/>},
     {id: "settings", screen: <SettingsPage focusDuration={focusDuration} setFocusDuration={setFocusDuration} breakDuration={breakDuration} setBreakDuration={setBreakDuration}/>},
   ]
   
 
   return (
    <div className="flex flex-col justify-center items-center min-h-screen gap-5 bg-pomo-text/70 overflow-x-hidden">
-      <main className='max-w-[360px] max-h-[600px] flex flex-col justify-between bg-pomo-bg'>
-        {/* Header section */}
-        <nav className="flex gap-4 justify-between items-center px-6 py-4 sticky top-0 bg-pomo-bg z-50"> 
-          <button className='text-2xl hover:scale-110 transition-all ease-in-out' onClick={handleNavigationBtn}>
-              <LayoutGrid/>
-          </button>
+      <main className='max-w-[360px] h-[630px] flex flex-col justify-between bg-pomo-bg'>
 
-          <div>
-            <h1 className='uppercase tracking-widest text-2xl font-pixel'>pomopixie</h1>
+        {/* Title bar section */}
+        <div className="titlebar flex justify-between border-b-1 border-dashed w-full bg-pomo-bg p-1"
+            data-tauri-drag-region>
+
+          <div className="font-pixel pointer-events-none text-xl">
+            PomoPixie
           </div>
 
-          <button onClick={handleProfileBtn} className='text-2xl hover:scale-110 transition-all ease-in-out'>
-            <User/>
-          </button>
-        </nav>
+          <div className="flex gap-1 controls" style={{ WebkitAppRegion: "no-drag" }}>
+            <button
+              onClick={minimize}
+              className="bg-pomo-clay active:scale-80 ease-in-out hover:bg-pomo-text/30 hover:scale-110 transition-all duration-300 text-pomo-text border-2 border-pomo-text w-[32px] h-[28px]"
+            >
+              _
+            </button>
 
-        {/* Main content section */}
-        <main className='flex flex-col px-4 gap-0.5 overflow-auto'>
-          {handleRenderScreen(screen)}
-        </main>
+            <button
+              onClick={close}
+              className="bg-pomo-clay active:scale-80 ease-in-out hover:bg-pomo-text/30 hover:scale-110 transition-all duration-300 text-pomo-text border-2 border-pomo-text w-[32px] h-[28px]"
+            >
+              X
+            </button>
+          </div>
+        </div>
+
+        <div className='overflow-auto h-full'>
+          {/* Header section */}
+          <nav className="flex gap-4 justify-between items-center px-6 py-4 bg-pomo-bg z-50"> 
+            <button className='text-2xl hover:scale-110 transition-all ease-in-out' onClick={handleNavigationBtn}>
+                <LayoutGrid/>
+            </button>
+
+            <div>
+              <h1 className='uppercase tracking-widest text-2xl font-pixel'>pomopixie</h1>
+            </div>
+
+            <button onClick={handleProfileBtn} className='text-2xl hover:scale-110 transition-all ease-in-out'>
+              <User/>
+            </button>
+          </nav>
+
+          {/* Main content section */}
+          <main className='flex flex-col px-4 gap-0.5'>
+            {handleRenderScreen(screen)}
+          </main>
+        </div>
+
 
         {/* Footer section */}
         <footer className='sticky bottom-0 bg-pomo-bg shadow-md py-2'>

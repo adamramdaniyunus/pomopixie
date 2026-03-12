@@ -1,5 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { clsx } from "clsx";
+import {motion} from "motion/react"
 
 const PixelButton = ({ children, className, onClick, variant = 'default', ...params }) => {
   const variants = {
@@ -16,13 +17,14 @@ const PixelButton = ({ children, className, onClick, variant = 'default', ...par
 
 
   return (
-    <button 
+    <motion.button 
       onClick={onClick}
-      className={cn("pixel-button", variants[variant], className)}
+      whileTap={{ scale:0.95, y:0 }}
+      className={cn("pixel-button hover:brightness-125 hover:scale-110 transition-all duration-200", variants[variant], className)}
       {...params}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
