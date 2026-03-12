@@ -92,7 +92,7 @@ function App() {
 
   return (
    <div className="flex flex-col justify-center items-center min-h-screen gap-5 bg-pomo-text/70">
-      <main className='max-w-90 flex flex-col justify-between min-h-screen bg-pomo-bg'>
+      <main className='max-w-[360px] max-h-[800px] flex flex-col justify-between bg-pomo-bg'>
         {/* Header section */}
         <nav className="flex gap-4 justify-between items-center px-6 py-4 sticky top-0 bg-pomo-bg z-50"> 
           <button className='text-2xl hover:scale-110 transition-all ease-in-out' onClick={handleNavigationBtn}>
