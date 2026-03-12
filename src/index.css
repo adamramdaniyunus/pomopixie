@@ -36,3 +36,28 @@
     box-shadow: 6px 6px 0px 0px rgba(79, 32, 13, 0.1);
   }
 }
+
+
+/* pixel scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e8dfcf;
+  border-left: 3px solid #5a2e1f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b77b5c;
+  border: 3px solid #5a2e1f;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a4664a;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}

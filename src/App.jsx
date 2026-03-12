@@ -91,8 +91,8 @@ function App() {
   
 
   return (
-   <div className="flex flex-col justify-center items-center min-h-screen gap-5 bg-pomo-text/70">
-      <main className='max-w-[360px] max-h-[800px] flex flex-col justify-between bg-pomo-bg'>
+   <div className="flex flex-col justify-center items-center min-h-screen gap-5 bg-pomo-text/70 overflow-x-hidden">
+      <main className='max-w-[360px] max-h-[600px] flex flex-col justify-between bg-pomo-bg'>
         {/* Header section */}
         <nav className="flex gap-4 justify-between items-center px-6 py-4 sticky top-0 bg-pomo-bg z-50"> 
           <button className='text-2xl hover:scale-110 transition-all ease-in-out' onClick={handleNavigationBtn}>
@@ -124,7 +124,7 @@ function App() {
                   key={item.id}
                   className={`
                     flex flex-col justify-center items-center
-                    border-none w-14 h-14 shadow-none
+                    border-none w-14 h-16 shadow-none
                     uppercase
                     duration-300
                     transition-all`}
@@ -145,7 +145,7 @@ function App() {
                       whileTap={{ scale: 0.9 }}
                     >
                       {item.icon}
-                      <span className="text-[8px] font-bold uppercase tracking-tighter">{item.name}</span>
+                      <span className="text-sm uppercase tracking-tighter">{item.name}</span>
                     </motion.div>
                 </PixelButton>
               )

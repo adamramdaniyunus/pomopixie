@@ -13,9 +13,9 @@
     "windows": [
       {
         "title": "PomoPixie",
-        "width": 800,
+        "width": 365,
         "height": 600,
-        "resizable": true,
+        "resizable": false,
         "fullscreen": false
       }
     ],
