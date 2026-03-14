@@ -27,6 +27,22 @@ function App() {
   const [breakDuration, setBreakDuration] = useState(5)
   const [screen, setScreen] = useState("home")
 
+  // config for mode
+  const modeConfig = {
+    work_mode: {
+      label: 'focusing',
+      duration: focusDuration
+    },
+    rest_mode: {
+      label: 'take a time',
+      duration: breakDuration
+    },
+    deep_mode: {
+      label: 'working hard!',
+      duration: 50
+    }
+  }
+
 
   /**
    * Logic Functions
@@ -77,6 +93,17 @@ function App() {
     setScreen('timer')
   }
 
+  /**
+   * function for handle changes mode
+   */
+
+  const handleChangeMode = (newMode) => {
+    if (newMode === mode) return;
+
+    setMode(newMode);
+    setScreen("timer");
+  };
+
   const navigationButton = [
     {id: "home", name: "Home", desc: "Back to home", icon: <LayoutGrid className='w-8 h-8'/>, color: "bg-pomo-text"},
     {id: "timer", name: "timer", desc: "Start timer", icon: <TimerIcon className='w-8 h-8'/>, color: "bg-pomo-text"},
@@ -87,7 +114,7 @@ function App() {
 
   const screenSection = [
     {id: "home", screen: <MainScreen focusDuration={focusDuration} handleModeBtn={handleModeBtn}/>},
-    {id: "timer", screen: <TimerScreen focusDuration={focusDuration}/>},
+    {id: "timer", screen: <TimerScreen onChangeMode={handleChangeMode} duration={modeConfig[mode].duration}  mode={mode} label={modeConfig[mode].label}/>},
     {id: "settings", screen: <SettingsPage focusDuration={focusDuration} setFocusDuration={setFocusDuration} breakDuration={breakDuration} setBreakDuration={setBreakDuration}/>},
   ]
   
