@@ -25,6 +25,7 @@ function App() {
   const [focusDuration, setFocusDuration] = useState(25)
   const [mode, setMode] = useState("work_mode")
   const [breakDuration, setBreakDuration] = useState(5)
+  const [deepFocusDuration, setDeepFocusDuration] = useState(50)
   const [screen, setScreen] = useState("home")
 
   // config for mode
@@ -61,7 +62,7 @@ function App() {
    * when button clicked it will be redirect to profile menu
    */
   const handleProfileBtn = () => {
-    console.log("clicked");
+    setScreen("profile")
   }
 
   /**
@@ -115,7 +116,7 @@ function App() {
   const screenSection = [
     {id: "home", screen: <MainScreen focusDuration={focusDuration} handleModeBtn={handleModeBtn}/>},
     {id: "timer", screen: <TimerScreen onChangeMode={handleChangeMode} duration={modeConfig[mode].duration}  mode={mode} label={modeConfig[mode].label}/>},
-    {id: "settings", screen: <SettingsPage focusDuration={focusDuration} setFocusDuration={setFocusDuration} breakDuration={breakDuration} setBreakDuration={setBreakDuration}/>},
+    {id: "settings", screen: <SettingsPage focusDuration={focusDuration} setFocusDuration={setFocusDuration} breakDuration={breakDuration} setBreakDuration={setBreakDuration} deepFocusDuration={deepFocusDuration} setDeepFocusDuration={setDeepFocusDuration}/>},
   ]
   
 

@@ -6,7 +6,9 @@ const SettingsPage = ({
     focusDuration,
     breakDuration,
     setFocusDuration,
-    setBreakDuration
+    setBreakDuration,
+    setDeepFocusDuration,
+    deepFocusDuration
 }) => {
 
     const menus = [
@@ -21,7 +23,9 @@ const SettingsPage = ({
      * when user clicked this button it will be increase or decrease the value
      */
     const handleDurationBtn = (type, action) => {
-        const setValue = type === "break" ? setBreakDuration : setFocusDuration;
+        const setValue = type === "break" ? 
+            setBreakDuration : type === 'work' ?
+            setFocusDuration : setDeepFocusDuration;
 
         setValue((prev) => {
             if (action === "increase") return prev + 1;
@@ -37,9 +41,11 @@ const SettingsPage = ({
         <div className=''>
             <h1 className='font-pixel text-2xl uppercase tracking-wider my-5'>timer settings</h1>
             <PixelCard>
-                <DurationSettings label="focus durations" value={focusDuration} handleDurationBtn={handleDurationBtn} type="focus"/>
+                <DurationSettings label="focus durations" value={focusDuration} handleDurationBtn={handleDurationBtn} type="work"/>
                 <hr className='opacity-20'/>
                 <DurationSettings label="break durations" value={breakDuration} handleDurationBtn={handleDurationBtn} type="break"/>
+                <hr className='opacity-20' />
+                <DurationSettings label="deep durations" value={deepFocusDuration} handleDurationBtn={handleDurationBtn} type="break"/>
             </PixelCard>
 
             <h1 className='font-pixel text-2xl uppercase tracking-wider my-5'>general</h1>
